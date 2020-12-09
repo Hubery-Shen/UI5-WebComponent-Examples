@@ -1,44 +1,42 @@
 // Import React Framework
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 // Import UI5 libs
+import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
+import "@ui5/webcomponents-base/dist/features/browsersupport/IE11WithWebComponentsPolyfill.js";
 import "@ui5/webcomponents/dist/Assets.js";
 import "@ui5/webcomponents-icons/dist/Assets.js";
 
 // Import Tested Component
-import "@ui5/webcomponents/dist/Popover.js";
+import "@ui5/webcomponents/dist/TabContainer";
+import "@ui5/webcomponents/dist/Tab";
+import "@ui5/webcomponents/dist/Panel";
+import "@ui5/webcomponents/dist/Button";
 
 // Import CSS
 import "./App.css";
 
 function App() {
-  const targetRef = useRef(null);
-  const popoverRef = useRef(null);
-  useEffect(() => {
-    popoverRef.current && popoverRef.current.openBy(targetRef.current);
-  }, []);
-  return (
-      <div className="App">
-        <div ref={targetRef} id="target" style={{ width: "100%", height: "100px", background: "lightblue" }} />
-        <div className="snippet">
-          <ui5-popover ref={popoverRef} horizontal-align="Left" id="hello-popover" header-text="Newsletter subscription">
-            <div className="popover-content">
-              <div className="flex-column">
-                <ui5-label htmlFor="emailInput">Email:</ui5-label>
-                <ui5-input id="emailInput" className="samples-margin-top" placeholder="Enter Email" />
-              </div>
-            </div>
-            <div slot="footer" className="popover-footer">
-              <div style={{ flex: 1 }} />
-              <ui5-button id="closePopoverButton" design="Emphasized">
-                Subscribe
-              </ui5-button>
-            </div>
-          </ui5-popover>
+    return (
+        <div className="App">
+            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2185 ( fixed )</h2>
+            <ui5-tabcontainer className="full-width" collapsed fixed show-overflow>
+                <ui5-tab text="Home"/>
+                <ui5-tab text="What's new" selected/>
+                <ui5-tab text="Who are we"/>
+                <ui5-tab text="About"/>
+                <ui5-tab text="Contacts"/>
+            </ui5-tabcontainer>
+            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2191 ( not fixed )</h2>
+            <ui5-panel width="100%" accessible-role="Complementary"
+                       header-text="Both expandable and expanded" className="full-width">
+                <h1>Panel RTL test</h1>
+            </ui5-panel>
+            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2393 ( not fixed )</h2>
+            <ui5-button design="Transparent" icon="message-information" title="Go down"/>
         </div>
-      </div>
-  );
+    );
 }
 
 export default App;
