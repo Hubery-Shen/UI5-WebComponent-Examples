@@ -1,5 +1,5 @@
 // Import React Framework
-import React from "react";
+import React, {useEffect} from "react";
 
 // Import UI5 libs
 import "react-app-polyfill/ie11";
@@ -13,28 +13,41 @@ import "@ui5/webcomponents/dist/TabContainer";
 import "@ui5/webcomponents/dist/Tab";
 import "@ui5/webcomponents/dist/Panel";
 import "@ui5/webcomponents/dist/Button";
+import "@ui5/webcomponents/dist/Popover";
 
 // Import CSS
 import "./App.css";
 
 function App() {
+    const popoverRef = React.createRef();
+    const popoverBtn = React.createRef();
+    useEffect(() => {
+        popoverRef.current.openBy(popoverBtn.current);
+    }, [])
     return (
         <div className="App">
-            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2185 ( fixed )</h2>
-            <ui5-tabcontainer className="full-width" collapsed fixed show-overflow>
-                <ui5-tab text="Home"/>
-                <ui5-tab text="What's new" selected/>
-                <ui5-tab text="Who are we"/>
-                <ui5-tab text="About"/>
-                <ui5-tab text="Contacts"/>
-            </ui5-tabcontainer>
-            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2191 ( not fixed )</h2>
-            <ui5-panel width="100%" accessible-role="Complementary"
-                       header-text="Both expandable and expanded" className="full-width">
-                <h1>Panel RTL test</h1>
-            </ui5-panel>
-            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2393 ( not fixed )</h2>
-            <ui5-button design="Transparent" icon="message-information" title="Go down"/>
+            <h2>For: https://github.com/SAP/ui5-webcomponents/issues/2626 ( not fixed )</h2>
+            <div>
+                <ui5-button design="Emphasized">TEST</ui5-button>
+            </div>
+            <div>
+                <ui5-button design="Emphasized">TEST</ui5-button>
+            </div>
+            <div>
+                <ui5-button design="Emphasized">TEST</ui5-button>
+            </div>
+            <div>
+                <ui5-button ref={popoverBtn} design="Emphasized">Open Popover</ui5-button>
+            </div>
+            <ui5-popover ref={popoverRef} modal={true} id="hello-popover" header-text="Newsletter subscription">
+                <div className="popover-content">
+                    popover-content
+                </div>
+                <div slot="footer" className="popover-footer">
+                    <div style={{flex: '1'}}/>
+                    <ui5-button id="closePopoverButton" design="Emphasized">Subscribe</ui5-button>
+                </div>
+            </ui5-popover>
         </div>
     );
 }
